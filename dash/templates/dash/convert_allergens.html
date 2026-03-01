@@ -1,0 +1,31 @@
+{% extends "menus/base.html" %}
+
+{% block title %}Convert allergen CSV | AllerEasy{% endblock %}
+
+{% block content %}
+<div class="import-container">
+  <div class="import-header">
+    <h1 class="import-title">Convert allergen CSV</h1>
+    <p class="import-subtitle">
+      Upload your raw allergen CSV. We'll normalise the cereals containing gluten and return a cleaned file ready for import.
+    </p>
+  </div>
+
+  {% if error %}
+    <div class="import-messages">
+      <div class="error">{{ error }}</div>
+    </div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" class="import-form">
+    {% csrf_token %}
+    <label for="file">Allergen CSV file</label>
+    <input type="file" id="file" name="file" accept=".csv" required>
+
+    <div class="import-footer">
+      <span class="note">We won't store this file - it's processed in-memory and returned as a download.</span>
+      <button type="submit" class="ms-btn">Convert &amp; download</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

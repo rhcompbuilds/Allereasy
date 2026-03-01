@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page_title|default:"Dashboard" }}</title>
+  {% load static %}
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/shared.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  
+</head>
+<body>
+  <header class="dash-header">
+    <h1 class="dash-title">Allereasy</h1>
+    <p class="dash-subtitle">Welcome, {{ request.user.username }}!</p>
+  </header>
+
+   <nav class="dash-nav-buttons">
+    <a href="{% url 'index' %}" class="ms-btn-small ms-btn">Guest View</a>
+    <a href="{% url 'dashboard_home' %}" class="ms-btn-small ms-btn">Home</a>
+    <a href="{% url 'dish_list' %}" class="ms-btn-small ms-btn">Dishes</a>
+    <a href="{% url 'import_data' %}" class="ms-btn-small ms-btn">Import</a>
+    <a href="{% url 'user_list' %}" class="ms-btn-small ms-btn">Users</a>
+    <a href="{% url 'branding_list' %}" class="ms-btn-small ms-btn">Branding</a>
+    <a href="{% url 'custom_logout' %}"
+       class="ms-btn-small ms-btn ms-btn-ghost">Logout</a>
+  </nav>
+  </header>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+    
+</body>
+</html>

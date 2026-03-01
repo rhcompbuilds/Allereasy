@@ -1,0 +1,93 @@
+{% extends "dash/base.html" %}
+{% load static %}
+
+{% block title %}Import data{% endblock title %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'dash/import_data.css' %}" type="text/css">
+{% endblock head_extra %}
+
+{% block content %}
+    <div class="import-container">
+    <div class="import-helper-block">
+        <h2 class="import-helper-title">Step 1 (optional): Convert allergen CSV</h2>
+        <p class="import-helper-text">
+            If your raw export has separate columns for Wheat, Barley, Rye, etc., use this tool
+            to normalise them into the canonical <strong>Cereals containing gluten</strong> allergen
+            before importing. You’ll get a cleaned CSV back to use in the main import below.
+        </p>
+
+        <form method="post"
+              enctype="multipart/form-data"
+              class="import-form import-form-secondary"
+              action="{% url 'convert_allergens' %}">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="convert_file" class="import-label">
+                    Allergen CSV to convert
+                </label>
+                <input type="file"
+                       id="convert_file"
+                       name="file"
+                       accept=".csv"
+                       required>
+            </div>
+            <div class="import-actions">
+                <button type="submit" class="import-btn import-btn-secondary">
+                    Convert &amp; download cleaned CSV
+                </button>
+            </div>
+        </form>
+    </div>
+    </div>
+    <hr class="import-separator" />
+
+    <div class="import-container">
+    <h1 class="import-title">Step 2: Import dish data (CSV / JSON)</h1>
+    <p class="import-subtitle">
+        Upload a CSV or JSON file containing dish data. Headers should match your Dish fields
+        (e.g. <code>name</code>, <code>status</code>, <code>kcal</code>, <code>allergens</code>, <code>image</code>, <code>description</code>).
+    </p>
+
+    {# Messages #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="import-message {{ message.tags|default:'info' }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="import-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="import-message error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="form-field">
+            <label for="{{ form.file.id_for_label }}" class="import-label">
+                {{ form.file.label }}
+            </label>
+            {{ form.file }}
+
+            {% if form.file.errors %}
+                <div class="import-message error">
+                    {{ form.file.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="import-actions">
+            <a href="{% url 'dish_list' %}" class="import-btn import-btn-secondary">
+                Cancel
+            </a>
+            <button type="submit" class="import-btn import-btn-primary">
+                Upload and process
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

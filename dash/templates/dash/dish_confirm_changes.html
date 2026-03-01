@@ -1,0 +1,60 @@
+{% extends "dash/base.html" %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+
+  <p>
+    Please review the changes below, provide a reason, and confirm to apply
+    the update to <strong>{{ dish.name }}</strong>.
+  </p>
+
+  <h2>Changes</h2>
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Current value</th>
+        <th>New value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field, old_val in old_values.items %}
+        <tr>
+          <td>{{ field|capfirst }}</td>
+          <td>{{ old_val }}</td>
+          <td>{{ new_values[field] }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No changes detected.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="post" action="{% url 'confirm_dish_changes' dish.pk %}" style="margin-top:1.5rem;">
+    {% csrf_token %}
+
+    <fieldset>
+      <legend>Reason for change</legend>
+      {{ reason_form.non_field_errors }}
+      <p>
+        {{ reason_form.reason.label_tag }}<br>
+        {{ reason_form.reason }}
+        {% if reason_form.reason.errors %}
+          <br>
+          <span class="error">{{ reason_form.reason.errors }}</span>
+        {% endif %}
+      </p>
+      <p class="helptext">
+        Please briefly describe why this dish has been updated
+        (e.g. supplier change, recipe change, correction, etc).
+      </p>
+    </fieldset>
+
+    <p style="margin-top:1rem;">
+      <button type="submit" class="ms-btn ms-btn-small">Confirm &amp; save changes</button>
+      <a href="{% url 'dish_list' %}" class="ms-btn ms-btn-small ms-btn-ghost">Cancel</a>
+    </p>
+  </form>
+{% endblock %}

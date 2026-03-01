@@ -1,0 +1,32 @@
+[
+  {
+    "model": "menus.subcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Veggie",
+      "slug": "veggie",
+      "subcat_image": "https://your-cdn.example.com/subcategories/veggie.jpg",
+      "category": 2
+    }
+  },
+  {
+    "model": "menus.subcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Grill",
+      "slug": "grill",
+      "subcat_image": "https://your-cdn.example.com/subcategories/grill.jpg",
+      "category": 2
+    }
+  },
+  {
+    "model": "menus.subcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Kids",
+      "slug": "kids",
+      "subcat_image": "https://your-cdn.example.com/subcategories/kids.jpg",
+      "category": 2
+    }
+  }
+]

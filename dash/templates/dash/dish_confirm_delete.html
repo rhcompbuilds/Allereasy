@@ -1,0 +1,30 @@
+{% extends "menus/base.html" %}
+
+{% block title %}Confirm delete{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="dish-admin-container">
+        <h1 class="dish-admin-title text-danger mb-3">Confirm deletion</h1>
+        <p class="dish-admin-subtitle mb-3">
+            You are about to permanently delete:
+        </p>
+        <p class="fs-5 fw-semibold mb-2">
+            “{{ dish.name }}”
+        </p>
+        <p class="text-danger fw-semibold">
+            This action cannot be undone.
+        </p>
+
+        <form method="post" class="mt-4 d-flex flex-wrap gap-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Yes, delete dish
+            </button>
+            <a href="{% url 'dish_list' %}" class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,72 @@
+[
+  {
+    "model": "menus.category",
+    "pk": 1,
+    "fields": {
+      "name": "Starters",
+      "slug": "starters",
+      "cat_image": "https://your-cdn.example.com/categories/starters.jpg",
+      "menu_type": 3
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 2,
+    "fields": {
+      "name": "Mains",
+      "slug": "mains",
+      "cat_image": "https://your-cdn.example.com/categories/mains.jpg",
+      "menu_type": 3
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 3,
+    "fields": {
+      "name": "Desserts",
+      "slug": "desserts",
+      "cat_image": "https://your-cdn.example.com/categories/desserts.jpg",
+      "menu_type": 3
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 4,
+    "fields": {
+      "name": "Carvery",
+      "slug": "carvery",
+      "cat_image": "https://your-cdn.example.com/categories/carvery.jpg",
+      "menu_type": 1
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 5,
+    "fields": {
+      "name": "Burgers",
+      "slug": "burgers",
+      "cat_image": "https://your-cdn.example.com/categories/burgers.jpg",
+      "menu_type": 1
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 6,
+    "fields": {
+      "name": "Fish Classics",
+      "slug": "fish-classics",
+      "cat_image": "https://your-cdn.example.com/categories/fish-classics.jpg",
+      "menu_type": 2
+    }
+  },
+  {
+    "model": "menus.category",
+    "pk": 7,
+    "fields": {
+      "name": "Sides",
+      "slug": "sides",
+      "cat_image": "https://your-cdn.example.com/categories/sides.jpg",
+      "menu_type": 2
+    }
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "model": "menus.menu_type",
+    "pk": 1,
+    "fields": {
+      "name": "Carvery",
+      "slug": "carvery",
+      "logo": "https://your-cdn.example.com/menusafe/neptune-logo.png",
+      "background_image": "https://your-cdn.example.com/menusafe/neptune-bg.jpg"
+    }
+  },
+  {
+    "model": "menus.menu_type",
+    "pk": 2,
+    "fields": {
+      "name": "Fish & Chips",
+      "slug": "fish-and-chips",
+      "logo": "https://your-cdn.example.com/menusafe/fishchips-logo.png",
+      "background_image": "https://your-cdn.example.com/menusafe/fishchips-bg.jpg"
+    }
+  },
+  {
+    "model": "menus.menu_type",
+    "pk": 3,
+    "fields": {
+      "name": "Family Restaurant",
+      "slug": "family-restaurant",
+      "logo": "https://your-cdn.example.com/menusafe/family-logo.png",
+      "background_image": "https://your-cdn.example.com/menusafe/family-bg.jpg"
+    }
+  }
+]

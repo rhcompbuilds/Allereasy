@@ -1,0 +1,82 @@
+{% extends "dash/base.html" %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+
+  <p>
+    This report shows every saved change to dishes, including who made the
+    change, when it happened, the reason given, and a summary of the fields
+    that were updated.
+  </p>
+
+  <form method="get" style="margin:1rem 0;">
+    <label for="dish">Filter by dish:</label><br>
+    <select name="dish" id="dish" onchange="this.form.submit()">
+      <option value="">All dishes</option>
+      {% for d in dishes %}
+        <option value="{{ d.id }}"
+          {% if selected_dish_id|default:'' == d.id|stringformat:'s' %}selected{% endif %}>
+          {{ d.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>When</th>
+        <th>Dish</th>
+        <th>Changed by</th>
+        <th>Reason</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+        <tr>
+          <td>{{ log.changed_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ log.dish.name }}</td>
+          <td>
+            {% if log.changed_by %}
+              {{ log.changed_by.username }}
+            {% else %}
+              System
+            {% endif %}
+          </td>
+          <td>{{ log.reason }}</td>
+          <td>
+            {% if log.changes %}
+              <ul>
+                {% for field, diff in log.changes.items %}
+                  <li>
+                    <strong>{{ field|capfirst }}:</strong>
+                    "{{ diff.old }}" → "{{ diff.new }}"
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <em>No field-level details recorded.</em>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No change history found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if is_paginated %}
+    <div class="pagination" style="margin-top:1rem;">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if selected_dish_id %}&amp;dish={{ selected_dish_id }}{% endif %}">&laquo; Prev</a>
+      {% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if selected_dish_id %}&amp;dish={{ selected_dish_id }}{% endif %}">Next &raquo;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

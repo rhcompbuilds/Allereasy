@@ -1,0 +1,139 @@
+/* ======================================= */
+/* DATA IMPORT – MENUSAFE ADMIN            */
+/* ======================================= */
+
+body {
+    background-color: var(--ms-bg, #f3f4f6);
+    color: var(--ms-text, #0f172a);
+    font-family: Arial, sans-serif;
+}
+
+.import-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 24px 24px 28px;
+    background: var(--ms-surface, #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.import-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ms-primary-strong, #0f172a);
+}
+
+.import-subtitle {
+    font-size: 0.9rem;
+    color: var(--ms-text-muted, #6b7280);
+    margin-bottom: 16px;
+}
+
+.import-form {
+    margin-top: 12px;
+    display: grid;
+    gap: 14px;
+}
+
+.import-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ms-text, #0f172a);
+}
+
+.import-form input[type="file"],
+.import-form select,
+.import-form input[type="text"],
+.import-form input[type="number"] {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--ms-border, #e5e7eb);
+    background-color: var(--ms-surface-soft, #f9fafb);
+    font-size: 0.9rem;
+}
+
+.import-form input:focus,
+.import-form select:focus {
+    outline: none;
+    border-color: var(--ms-primary, #0f766e);
+    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25);
+}
+
+/* Buttons (reusing same idea as dish_list) */
+
+.import-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.import-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.import-btn-primary {
+    background-color: var(--ms-primary, #0f766e);
+    border-color: var(--ms-primary, #0f766e);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.35);
+}
+
+.import-btn-primary:hover {
+    background-color: var(--ms-accent, #14b8a6);
+}
+
+.import-btn-secondary {
+    background-color: #ffffff;
+    border-color: var(--ms-border, #e5e7eb);
+    color: var(--ms-text, #0f172a);
+}
+
+.import-btn-secondary:hover {
+    background-color: var(--ms-surface-soft, #f9fafb);
+}
+
+/* Info / error messages */
+
+.import-message {
+    margin-top: 12px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+
+.import-message.info {
+    background-color: var(--ms-primary-soft, #ecfdf5);
+    color: var(--ms-primary-strong, #0f172a);
+    border: 1px solid rgba(14, 116, 144, 0.2);
+}
+
+.import-message.error {
+    background-color: #fef2f2;
+    color: var(--ms-danger, #b91c1c);
+    border: 1px solid rgba(185, 28, 28, 0.2);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .import-container {
+        margin: 16px;
+        padding: 18px 16px 22px;
+    }
+}

@@ -1,0 +1,73 @@
+{% extends "dash/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard Home - Allereasy{% endblock title %}
+{% block content %}
+
+<div class="dash-wrapper">
+  <h2 class="dash-section-title">Admin Dashboard</h2>
+  <p class="dash-section-text">
+    Manage dishes, statuses and imports across all of your menus.
+  </p>
+
+  {# Stat cards #}
+  <section class="dash-section">
+    <div class="dash-card-grid">
+
+      <a href="{% url 'dish_list' %}?status=active"
+         class="dash-card dash-card--active">
+        <div class="dash-card-body">
+          <div class="dash-card-label">Active dishes</div>
+          <div class="dash-card-value">{{ active_dishes }}</div>
+          <p class="dash-card-meta">Visible on public menus</p>
+        </div>
+      </a>
+
+      <a href="{% url 'dish_list' %}?status=inactive"
+         class="dash-card dash-card--inactive">
+        <div class="dash-card-body">
+          <div class="dash-card-label">Inactive dishes</div>
+          <div class="dash-card-value">{{ inactive_dishes }}</div>
+          <p class="dash-card-meta">Hidden, kept for later</p>
+        </div>
+      </a>
+
+      <a href="{% url 'dish_list' %}?status=archive"
+         class="dash-card dash-card--archived">
+        <div class="dash-card-body">
+          <div class="dash-card-label">Archived dishes</div>
+          <div class="dash-card-value">{{ archive_dishes }}</div>
+          <p class="dash-card-meta">Ready for permanent deletion</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  {# Management actions #}
+  <section class="dash-section">
+    <h2 class="dash-section-title">Management actions</h2>
+    <p class="dash-section-text">
+      Open the dish list to edit, create or archive items. Use import to bulk update.
+    </p>
+
+    <div class="dash-actions">
+      <a href="{% url 'dish_list' %}" class="ms-btn dash-action-btn">
+        Manage dishes
+      </a>
+      <a href="{% url 'dish_create' %}" class="ms-btn dash-action-btn ms-btn-ghost">
+        Add new dish
+      </a>
+      <a href="{% url 'import_data' %}" class="ms-btn dash-action-btn">
+        Import dish data
+      </a>
+    </div>
+  </section>
+
+  <footer class="dash-footer">
+    <small>© 2025 Allereasy. All rights reserved.</small>
+  </footer>
+
+</div>
+
+{% endblock content %}

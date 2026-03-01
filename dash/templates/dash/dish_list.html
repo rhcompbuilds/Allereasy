@@ -1,0 +1,157 @@
+{% extends "dash/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+<div class="dish-list-container">
+
+    <h1 class="dish-list-header">Dish management</h1>
+
+    {# Flash Messages #}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li class="flash-message-success">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="top-actions">
+        {# STATUS FILTERS AS PILL BUTTONS #}
+        <div class="filter-buttons">
+            <a href="{% url 'dish_list' %}"
+               class="status-pill {% if current_status == 'all' %}status-pill-active{% endif %}">
+                All dishes
+            </a>
+            <a href="{% url 'dish_list' %}?status=active"
+               class="status-pill {% if current_status == 'active' %}status-pill-active{% endif %}">
+                Active
+            </a>
+            <a href="{% url 'dish_list' %}?status=inactive"
+               class="status-pill {% if current_status == 'inactive' %}status-pill-active{% endif %}">
+                Inactive
+            </a>
+            <a href="{% url 'dish_list' %}?status=archive"
+               class="status-pill {% if current_status == 'archive' %}status-pill-active status-pill-archive{% endif %}">
+                Archive
+            </a>
+        </div>
+
+        <div class="main-buttons">
+            <a href="{% url 'dish_create' %}" class="btn-add-dish">+ Add new dish</a>
+            <a href="{% url 'import_data' %}" class="btn-import-data">Import data</a>
+        </div>
+    </div>
+
+    <form method="get" class="search-form">
+        <input type="text"
+               name="q"
+               placeholder="Search dish name, category, or menu type."
+               value="{{ query }}"
+               class="search-input">
+        <input type="hidden" name="status" value="{{ current_status }}">
+        <button type="submit" class="search-btn">Search</button>
+
+        {% if query %}
+            <a href="{% url 'dish_list' %}?status={{ current_status }}" class="clear-search-btn">
+                Clear search
+            </a>
+        {% endif %}
+    </form>
+
+    {% if current_status == 'archive' and dishes|length > 0 %}
+        <div class="archive-warning">
+            <p>
+                WARNING: This view shows archived items. They can be permanently deleted below.
+            </p>
+            <form method="post"
+                  action="{% url 'bulk_archive_delete' %}"
+                  class="archive-form">
+                {% csrf_token %}
+                <button type="submit"
+                        onclick="return confirm('Are you sure you want to permanently delete ALL {{ dishes|length }} archived dishes? This cannot be undone.')"
+                        class="delete-btn">
+                    Permanently delete all archived ({{ dishes|length }})
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if dishes %}
+        <div class="dish-card-grid">
+            {% for dish in page_obj.object_list %}
+                <article class="dash-dish-card dash-dish-card--{{ dish.status }}">
+                    <header class="dash-dish-card-header">
+                        <h2 class="dash-dish-title">
+                            <a href="{% url 'dish_update' dish.pk %}">
+                                {{ dish.name }}
+                            </a>
+                        </h2>
+                        <span class="dash-dish-status-badge dash-dish-status-{{ dish.status }}">
+                            {{ dish.status|capfirst }}
+                        </span>
+                    </header>
+
+                    <div class="dash-dish-card-body">
+                        <p class="dash-dish-meta">
+                            <span class="dash-dish-meta-label">Category:</span>
+                            <span>{{ dish.category.name|default:"—" }}</span>
+                        </p>
+
+                        <p class="dash-dish-meta">
+                            <span class="dash-dish-meta-label">Menu type(s):</span>
+                            <span>
+                                {% for mt in dish.menu_type.all %}
+                                    <span class="dash-pill dash-pill-soft">{{ mt.name }}</span>
+                                {% empty %}
+                                    <span class="text-muted">—</span>
+                                {% endfor %}
+                            </span>
+                        </p>
+
+                        <p class="dash-dish-meta">
+                            <span class="dash-dish-meta-label">Allergens:</span>
+                            <span>
+                                {% for allergen in dish.allergens.all %}
+                                    <span class="dash-pill">{{ allergen.name }}</span>
+                                {% empty %}
+                                    <span class="text-muted">None</span>
+                                {% endfor %}
+                            </span>
+                        </p>
+                    </div>
+
+                    <footer class="dash-dish-card-footer">
+                        <a href="{% url 'dish_update' dish.pk %}" class="btn btn-sm btn-outline-primary">
+                            Edit
+                        </a>
+                        <a href="{% url 'dish_delete' dish.pk %}" class="btn btn-sm btn-outline-danger">
+                            Delete
+                        </a>
+                    </footer>
+                </article>
+            {% endfor %}
+        </div>
+
+        {# Pagination #}
+        {% if is_paginated %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&status={{ current_status }}&q={{ query }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&status={{ current_status }}&q={{ query }}">Next</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <p>No dishes found for this filter.</p>
+    {% endif %}
+</div>
+{% endblock content %}

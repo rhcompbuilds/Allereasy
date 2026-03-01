@@ -1,0 +1,113 @@
+{% extends "dash/base.html" %}
+{% block content %}
+<h1>{{ page_title }}</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <fieldset>
+    <legend>Basic</legend>
+    {{ form.name.errors }}
+    <p>
+      {{ form.name.label_tag }}<br>
+      {{ form.name }}
+    </p>
+    <p>
+      {{ form.logo.label_tag }}<br>
+      {{ form.logo }}
+    </p>
+    <p>
+      {{ form.background_image.label_tag }}<br>
+      {{ form.background_image }}
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Colours</legend>
+    <div class="color-row">
+      <label>Primary colour</label><br>
+      <input type="color" name="primary_color" value="{{ form.instance.primary_color }}">
+      {{ form.primary_color }}
+    </div>
+
+    <div class="color-row">
+      <label>Secondary colour</label><br>
+      <input type="color" name="secondary_color" value="{{ form.instance.secondary_color }}">
+      {{ form.secondary_color }}
+    </div>
+
+    <div class="color-row">
+      <label>Accent colour</label><br>
+      <input type="color" name="accent_color" value="{{ form.instance.accent_color }}">
+      {{ form.accent_color }}
+    </div>
+
+    <div class="color-row">
+      <label>Text colour</label><br>
+      <input type="color" name="text_color" value="{{ form.instance.text_color }}">
+      {{ form.text_color }}
+    </div>
+
+    <div class="color-row">
+      <label>Background colour</label><br>
+      <input type="color" name="background_color" value="{{ form.instance.background_color }}">
+      {{ form.background_color }}
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Font</legend>
+    <p>
+      <label for="font-select">Preset font</label><br>
+      <select id="font-select" onchange="updateFont(this.value)">
+        <option value="">Custom (use text field below)</option>
+        <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">System UI</option>
+        <option value="'Poppins', system-ui, sans-serif">Poppins</option>
+        <option value="'Playfair Display', serif">Playfair Display</option>
+        <option value="'Montserrat', system-ui, sans-serif">Montserrat</option>
+      </select>
+    </p>
+    <p>
+      {{ form.font_family.label_tag }}<br>
+      {{ form.font_family }}
+    </p>
+
+    <div id="font-preview" style="
+      margin-top:1rem;
+      padding:1rem;
+      border:1px solid #ddd;
+      background:#f9fafb;
+      font-family: {{ form.instance.font_family }};
+    ">
+      The quick brown fox jumps over the lazy dog.
+    </div>
+  </fieldset>
+
+  <p style="margin-top:1rem;">
+    <button type="submit" class="btn btn-primary">Save branding</button>
+    <a href="{% url 'branding_list' %}" class="btn">Cancel</a>
+  </p>
+</form>
+
+<script>
+  function updateFont(value) {
+    if (!value) return;
+    const input = document.getElementById("id_font_family");
+    const preview = document.getElementById("font-preview");
+    if (input) {
+      input.value = value;
+    }
+    if (preview) {
+      preview.style.fontFamily = value;
+    }
+  }
+
+  (function initPreview(){
+    const input = document.getElementById("id_font_family");
+    const preview = document.getElementById("font-preview");
+    if (input && preview) {
+      preview.style.fontFamily = input.value;
+    }
+  })();
+</script>
+{% endblock %}

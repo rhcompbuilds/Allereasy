@@ -1,0 +1,144 @@
+{% extends "menus/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="dish-admin-container">
+        <div class="dish-admin-header">
+            <div>
+                <h1 class="dish-admin-title">
+                    {% if form.instance.pk %}
+                        Edit dish: {{ form.instance.name }}
+                    {% else %}
+                        Create new dish
+                    {% endif %}
+                </h1>
+                <p class="dish-admin-subtitle">
+                    Define basic details, menu mapping and allergens for this dish.
+                </p>
+            </div>
+        </div>
+
+        {# Errors #}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row g-4">
+                {# LEFT COLUMN: basic fields #}
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">
+                            {{ form.name.label }}
+                        </label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.menu_type.id_for_label }}" class="form-label">
+                            {{ form.menu_type.label }}
+                        </label>
+                        {{ form.menu_type }}
+                        {{ form.menu_type.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">
+                            {{ form.category.label }}
+                        </label>
+                        {{ form.category }}
+                        {{ form.category.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.subcategory.id_for_label }}" class="form-label">
+                            {{ form.subcategory.label }}
+                        </label>
+                        {{ form.subcategory }}
+                        {{ form.subcategory.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.image.id_for_label }}" class="form-label">
+                            {{ form.image.label }} (URL)
+                        </label>
+                        {{ form.image }}
+                        {{ form.image.errors }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.status.id_for_label }}" class="form-label">
+                                {{ form.status.label }}
+                            </label>
+                            {{ form.status }}
+                            <div class="form-text">
+                                Controls visibility on public menus.
+                            </div>
+                            {{ form.status.errors }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.kcal.id_for_label }}" class="form-label">
+                                {{ form.kcal.label }}
+                            </label>
+                            {{ form.kcal }}
+                            {{ form.kcal.errors }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.slug.id_for_label }}" class="form-label">
+                            {{ form.slug.label }}
+                        </label>
+                        {{ form.slug }}
+                        {{ form.slug.errors }}
+                        <div class="form-text">
+                            Optional: leave blank to auto-generate or use plain names.
+                        </div>
+                    </div>
+                </div>
+
+                {# RIGHT COLUMN: description + allergens #}
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            {{ form.description.label }}
+                        </label>
+                        {{ form.description }}
+                        {{ form.description.errors }}
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="{{ form.allergens.id_for_label }}" class="form-label">
+                            {{ form.allergens.label }}
+                        </label>
+                        <div class="border rounded p-2" style="max-height: 260px; overflow-y: auto;">
+                            {{ form.allergens }}
+                        </div>
+                        {{ form.allergens.errors }}
+                        <div class="form-text">
+                            Tick all allergens that this dish contains.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                <a href="{% url 'dish_list' %}" class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    Save dish
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

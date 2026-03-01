@@ -1,0 +1,92 @@
+[
+  {
+    "model": "menus.allergen",
+    "pk": 1,
+    "fields": {
+      "name": "Gluten",
+      "slug": "gluten",
+      "icon": "https://your-cdn.example.com/icons/gluten.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 2,
+    "fields": {
+      "name": "Wheat",
+      "slug": "wheat",
+      "icon": "https://your-cdn.example.com/icons/wheat.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 3,
+    "fields": {
+      "name": "Milk",
+      "slug": "milk",
+      "icon": "https://your-cdn.example.com/icons/milk.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 4,
+    "fields": {
+      "name": "Eggs",
+      "slug": "eggs",
+      "icon": "https://your-cdn.example.com/icons/eggs.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 5,
+    "fields": {
+      "name": "Soy",
+      "slug": "soy",
+      "icon": "https://your-cdn.example.com/icons/soy.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 6,
+    "fields": {
+      "name": "Fish",
+      "slug": "fish",
+      "icon": "https://your-cdn.example.com/icons/fish.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 7,
+    "fields": {
+      "name": "Crustaceans",
+      "slug": "crustaceans",
+      "icon": "https://your-cdn.example.com/icons/crustaceans.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 8,
+    "fields": {
+      "name": "Sesame",
+      "slug": "sesame",
+      "icon": "https://your-cdn.example.com/icons/sesame.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 9,
+    "fields": {
+      "name": "Peanuts",
+      "slug": "peanuts",
+      "icon": "https://your-cdn.example.com/icons/peanuts.png"
+    }
+  },
+  {
+    "model": "menus.allergen",
+    "pk": 10,
+    "fields": {
+      "name": "Tree Nuts",
+      "slug": "tree-nuts",
+      "icon": "https://your-cdn.example.com/icons/tree-nuts.png"
+    }
+  }
+]
