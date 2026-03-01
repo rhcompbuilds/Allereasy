@@ -1,0 +1,49 @@
+{% load static %}
+
+{% if dishes %}
+    <!-- Dish List -->
+    <div class="dish-list-wrapper">
+        {% for dish in dishes %}
+            <div class="dish-card">
+                <h3 class="dish-name">{{ dish.name }}</h3>
+                {% if dish.description %}
+                    <p class="dish-description">{{ dish.description }}</p>
+                {% endif %}
+                
+                {% if dish.price %}
+                    <p class="dish-price">Price: &pound;{{ dish.price|floatformat:2 }}</p>
+                {% endif %}
+
+                {% if dish.kcal_info %}
+                    <p class="dish-kcal">Calories: {{ dish.kcal_info }} kcal</p>
+                {% endif %}
+                
+                <div class="dish-allergens">
+                    <h4 class="allergens-title">Allergens Contained:</h4>
+                    {% if dish.allergens.all %}
+                        <div class="allergen-icons">
+                            {% for allergen in dish.allergens.all %}
+                                <div class="allergen-item-display">
+                                    {% if allergen.icon %}
+                                        <img src="{{ allergen.icon }}" alt="{{ allergen.name }}" title="{{ allergen.name }}" class="allergen-icon">
+                                    {% else %}
+                                        <span class="allergen-name-text" title="{{ allergen.name }}">{{ allergen.name }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="no-allergens">No major allergens listed.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <div class="no-dishes-found">
+        <p>No dishes found that meet your current allergen exclusion criteria.</p>
+        <p>Please check or uncheck some allergens to see more items.</p>
+    </div>
+{% endif %}
+

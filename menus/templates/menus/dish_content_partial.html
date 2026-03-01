@@ -1,0 +1,54 @@
+<div id="dish-list-wrapper" class="dish-list-wrapper">
+    {% for dish in dishes %}
+        <div class="dish-card">
+
+            <h3 class="dish-name">{{ dish.name }}</h3>
+
+            {% if dish.image %}
+                <img src="{{ dish.image }}"
+                     alt="{{ dish.name }} image"
+                     class="dish-image">
+            {% endif %}
+
+            {% if dish.description %}
+                <p class="dish-description">
+                    {{ dish.description|truncatechars:150 }}
+                </p>
+            {% endif %}
+
+            <div class="dish-kcal">
+                Kcal: {{ dish.kcal|default:"N/A" }}
+            </div>
+
+            <div class="allergens-title">Allergens included:</div>
+
+            <div class="allergen-icons">
+                {% for allergen in dish.allergens.all %}
+                    {% if allergen.icon %}
+                        <img src="{{ allergen.icon }}"
+                             alt="{{ allergen.name }} icon"
+                             title="{{ allergen.name }}"
+                             class="allergen-icon">
+                    {% else %}
+                        <span class="allergen-name-text">
+                            {{ allergen.name }}
+                        </span>
+                    {% endif %}
+                {% empty %}
+                    <span class="no-allergens">Free from common allergens.</span>
+                {% endfor %}
+            </div>
+
+            <div class="dish-meta">
+                Group: {{ dish.subcategory.name|default:"Uncategorised" }}
+                ({{ dish.category.name|default:"Uncategorised" }})
+            </div>
+
+        </div>
+    {% empty %}
+        <div class="no-dishes-found">
+            <p>No dishes matching the current filters were found.</p>
+            <p>Try checking more allergens or selecting a different subcategory.</p>
+        </div>
+    {% endfor %}
+</div>

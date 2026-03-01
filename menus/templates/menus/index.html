@@ -1,0 +1,130 @@
+{% extends "menus/base.html" %}
+{% load static %}
+
+{% block title %}Allereasy – Select a Menu{% endblock %}
+
+{% block content %}
+
+<section class="ms-hero">
+    <div class="ms-hero-inner">
+        <div class="ms-hero-text">
+
+            <div class="ms-badge">
+                <span>Allereasy</span>
+                <span>•</span>
+                <span>Allergen-aware menus for every business</span>
+            </div>
+
+            <h1 class="ms-hero-title">View live, allergen-aware menus in seconds.</h1>
+
+            <p class="ms-hero-lead">
+                Choose a menu below to see dishes, filter by allergens, and share a safe,
+                mobile-friendly view with your guests.
+            </p>
+
+            {% if menu_types|length == 1 %}
+                <p class="ms-hero-highlight">
+                    Running a single site?
+                    <span>Allereasy</span> keeps your one menu always up to date and compliant –
+                    without extra complexity.
+                </p>
+            {% elif menu_types|length > 1 %}
+                <p class="ms-hero-highlight">
+                    Managing multiple sites or concepts?
+                    <span>Allereasy</span> lets each brand or venue have its own menu
+                    while sharing a single allergen system.
+                </p>
+            {% else %}
+                <p class="ms-hero-highlight">
+                    Once you add your first menu type, it will appear here for staff
+                    and guests to browse.
+                </p>
+            {% endif %}
+        </div>
+
+        <aside class="ms-hero-aside">
+            <h2 class="ms-hero-aside-title">
+                Allergen-safe by design
+                <span class="ms-pill">
+                    ✓ Real-time filters
+                </span>
+            </h2>
+            <ul class="ms-hero-aside-list">
+                <li>Guests can instantly hide dishes containing selected allergens.</li>
+                <li>Works for small independents and multi-site operators alike.</li>
+                <li>No reprinting – update allergens once, menus everywhere update.</li>
+            </ul>
+        </aside>
+    </div>
+</section>
+
+<main class="ms-container">
+    <header class="ms-menu-header">
+        <div>
+            <h2 class="ms-menu-title">
+                {% if menu_types|length > 1 %}
+                    Select a menu or site
+                {% else %}
+                    Your menu
+                {% endif %}
+            </h2>
+            <p class="ms-menu-subtitle">
+                {% if menu_types|length > 1 %}
+                    Each card represents a menu, brand, or location. Tap to view categories and dishes.
+                {% elif menu_types|length == 1 %}
+                    Tap below to open your Allereasy view and start exploring dishes and allergens.
+                {% else %}
+                    No menu types have been configured yet.
+                {% endif %}
+            </p>
+        </div>
+    </header>
+
+    {% if menu_types %}
+        <section class="ms-grid" aria-label="Available menus">
+            {% for menu in menu_types %}
+                <a href="{% url 'category_selection' menu.slug %}" class="ms-card">
+                    <div class="ms-card-hero"
+                         {% if menu.background_image %}
+                             style="background-image: url('{{ menu.background_image }}');"
+                         {% endif %}>
+                        <div class="ms-card-overlay"></div>
+                        <div class="ms-card-logo">
+                            {% if menu.logo %}
+                                <img src="{{ menu.logo }}" alt="{{ menu.name }} logo">
+                            {% else %}
+                                <img src="{% static 'Allereasy-logo.svg' %}" alt="Menu logo">
+                            {% endif %}
+                            <span class="ms-card-logo-text">{{ menu.name }}</span>
+                        </div>
+                    </div>
+                    <div class="ms-card-body">
+                        <div class="ms-card-title">{{ menu.name }}</div>
+                        <div class="ms-card-sub">
+                            Allergen-aware menu with live filtering and detailed dish information.
+                        </div>
+                        <div class="ms-card-cta">
+                            <span>View menu</span>
+                            <svg class="ms-card-cta-icon"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 20 20"
+                                 fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M5.22 4.22a.75.75 0 011.06 0L13 10l-6.72 5.78a.75.75 0 11-1.06-1.06L10.44 10 5.22 5.28a.75.75 0 010-1.06z"
+                                      clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </section>
+    {% else %}
+        <div class="ms-empty">
+            No menus are configured yet. Add a <strong>Menu_Type</strong> in the admin
+            (or seed dummy data) and it will appear here as a selectable card.
+        </div>
+    {% endif %}
+</main>
+
+{% endblock %}

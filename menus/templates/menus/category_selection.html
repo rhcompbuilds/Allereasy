@@ -1,0 +1,50 @@
+{% extends "menus/base.html" %}
+
+{% block title %}{{ menu_type.name }} – Select a category{% endblock %}
+
+{% block breadcrumb %}
+  
+{% endblock %}
+
+{% block content %}
+
+<section class="ms-category-hero">
+  <h1 class="ms-page-title">
+    {{ menu_type.name }}
+  </h1>
+
+  <div class="ms-allergen-card">
+    <h2>Allergen overview</h2>
+    <p>
+      Choose a category to see dishes and apply live allergen filters.
+    </p>
+
+    <div class="ms-allergen-list">
+      {% for allergen in all_allergens %}
+        <label class="ms-allergen-pill">
+          <input type="checkbox" disabled>
+          {{ allergen.name }}
+        </label>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="ms-category-select">
+  <h2 class="text-center mt-4 mb-3">Select a category</h2>
+
+<nav class="category-pills" aria-label="Menu categories">
+    {% for category in categories %}
+        <a href="{% url 'dish_list' menu_type.slug category.slug %}"
+           class="category-pill">
+            <span class="category-pill-label">{{ category.name }}</span>
+        </a>
+    {% empty %}
+        <p class="text-muted text-center">
+            No categories are available for this menu yet.
+        </p>
+    {% endfor %}
+</nav>
+</section>
+
+{% endblock %}

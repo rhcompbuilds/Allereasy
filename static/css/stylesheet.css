@@ -1,0 +1,834 @@
+/* ======================================= */
+/* GLOBAL STYLES – PUBLIC SITE             */
+/* ======================================= */
+
+body {
+    margin: 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+    /* Soft gradient background */
+    background:
+        radial-gradient(circle at 0% 0%, #e0f2fe 0, transparent 45%),
+        radial-gradient(circle at 100% 0%, #ecfdf5 0, transparent 45%),
+        linear-gradient(180deg, #f9fafb, #e5e7eb);
+    color: var(--ms-text);
+}
+
+#content {
+    max-width: 980px;
+    margin: 20px auto 40px;
+    padding: 24px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(249, 250, 251, 0.98)
+    );
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.12);
+}
+
+/* ======================================= */
+/* INDEX PAGE TEXT                         */
+/* ======================================= */
+
+.KcalTitle,
+.KcalSubTitle {
+    text-align: center;
+    width: 100%;
+}
+
+.centreCol {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.mainText {
+    max-width: 80%;
+    margin: 20px auto;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* ======================================= */
+/* HEADER & NAVIGATION (PUBLIC SHELL)      */
+/* ======================================= */
+
+.main-header {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(90deg, var(--ms-primary), var(--ms-accent));
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-links-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.home-logo img {
+    height: 80px;
+    width: auto;
+    vertical-align: middle;
+}
+
+/* Back link in old header */
+.back-link-header {
+    height: 80px;
+    width: auto;
+    display: block;
+}
+
+.back-link-header img {
+    height: 100%;
+    vertical-align: middle;
+}
+
+.nav-links-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-item {
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(15, 23, 42, 0.2);
+    color: #ffffff;
+}
+
+.login-link img {
+    height: 40px;
+    vertical-align: middle;
+}
+
+/* ======================================= */
+/* MENU DETAIL / GUEST VIEW                */
+/* ======================================= */
+
+.menu-container,
+.dish-content {
+    background-color: transparent;
+}
+
+.MenuTitle {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.MenuTitle img {
+    max-height: 120px;
+    width: auto;
+}
+
+/* Layout: allergen filter (left) + dishes (right) */
+.menu-container {
+    display: grid;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-top: 0.75rem;
+}
+
+.col-lg-4,
+.col-lg-8 {
+    width: 100%;
+}
+
+.menu-content-wrapper {
+    width: 100%;
+}
+
+/* Category list on category_selection */
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.category-list h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: #333;
+}
+
+.category-item {
+    text-align: center;
+    border: 1px solid var(--ms-border, #e5e7eb);
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f9fafb, #ffffff);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
+    border-color: var(--ms-accent);
+}
+
+.category-item h3 {
+    font-size: 1em;
+    margin-top: 10px;
+    color: var(--ms-primary);
+}
+
+.category-item img {
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* ======================================= */
+/* DISH CARDS + ALLERGEN DATA (PER DISH)   */
+/* ======================================= */
+
+.dish-list-wrapper {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 10px;
+}
+
+.dish-card {
+    background-color: rgba(255, 255, 255, 0.96);
+    border: 1px solid var(--ms-border, #e5e7eb);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.dish-name {
+    color: var(--ms-primary-strong);
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.4em;
+    border-bottom: 2px solid var(--ms-border);
+    padding-bottom: 8px;
+}
+
+.dish-price {
+    font-weight: 600;
+    color: var(--ms-success);
+}
+
+.dish-kcal {
+    color: var(--ms-text-muted);
+}
+
+.allergens-title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #dc3545;
+    margin-bottom: 10px;
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+}
+
+.allergen-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.allergen-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    padding: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.allergen-name-text {
+    background-color: #ffc107;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.no-allergens {
+    color: #28a745;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.no-dishes-found {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 40px;
+    margin: 50px auto;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.no-dishes-found p:first-child {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* ======================================= */
+/* LANDING (INDEX) STYLES                  */
+/* ======================================= */
+
+.ms-hero {
+    padding: 3rem 1.5rem 2rem;
+    background:
+        radial-gradient(circle at top left, #ecfdf5 0, transparent 55%),
+        radial-gradient(circle at top right, #e0f2fe 0, transparent 55%),
+        linear-gradient(180deg, #f9fafb, #ffffff);
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 20px 20px 12px 12px;
+}
+
+.ms-hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.ms-hero-title {
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+}
+
+.ms-hero-lead {
+    margin: 0.25rem 0;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+.ms-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid #bbf7d0;
+    background: #ecfdf5;
+    color: #047857;
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.ms-hero-highlight {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-top: 0.75rem;
+}
+
+.ms-hero-highlight span {
+    font-weight: 600;
+    color: #0f766e;
+}
+
+/* Hero aside */
+
+.ms-hero-aside {
+    background: #0f172a;
+    border-radius: 1rem;
+    padding: 1.2rem 1.4rem;
+    color: #e5e7eb;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+}
+
+.ms-hero-aside-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ms-hero-aside-list {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+    color: #e5e7eb;
+}
+
+.ms-hero-aside-list li + li {
+    margin-top: 0.25rem;
+}
+
+/* Main container */
+
+.ms-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 3rem;
+}
+
+.ms-menu-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.ms-menu-title {
+    font-size: 1.2rem;
+    color: #111827;
+    margin: 0;
+}
+
+.ms-menu-subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.ms-logo-wrap {
+    margin-bottom: 0.5rem;
+}
+
+.ms-logo-full {
+    height: 80px;
+    width: auto;
+}
+
+/* Menu cards grid */
+
+.ms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+    margin-top: 0.75rem;
+}
+
+.ms-card {
+    position: relative;
+    border-radius: 0.9rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    text-decoration: none;
+    color: inherit;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.ms-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 30px rgba(15, 23, 42, 0.15);
+    border-color: #a5f3fc;
+}
+
+.ms-card-hero {
+    position: relative;
+    padding-top: 56%;
+    background-size: cover;
+    background-position: center;
+    background-color: #f3f4f6;
+}
+
+.ms-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(15, 23, 42, 0.7),
+        rgba(15, 23, 42, 0.1)
+    );
+}
+
+.ms-card-logo {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0.8rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+}
+
+.ms-card-logo img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+}
+
+.ms-card-logo-text {
+    font-size: 0.8rem;
+    margin-left: 0.6rem;
+    color: #f9fafb;
+    text-shadow: 0 1px 2px rgba(15, 23, 42, 0.9);
+}
+
+.ms-card-body {
+    padding: 0.9rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.ms-card-title {
+    font-weight: 600;
+    color: #111827;
+    font-size: 1rem;
+}
+
+.ms-card-sub {
+    font-size: 0.86rem;
+    color: #6b7280;
+}
+
+/* Empty state */
+
+.ms-empty {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-radius: 0.75rem;
+    background: #f9fafb;
+    border: 1px dashed #e5e7eb;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* ======================================= */
+/* CATEGORY & SUBCATEGORY PILLS            */
+/* ======================================= */
+
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--ms-border, #e5e7eb);
+    background: #ffffff;
+    color: var(--ms-primary, #0f172a);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+.category-pill:hover {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+    color: #047857;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+.category-pill-label {
+    white-space: nowrap;
+}
+
+/* Subcategory nav pills */
+
+.subcategory-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+}
+
+.subcategory-tabs .tab-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: #ffffff;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        color 0.15s ease;
+}
+
+.subcategory-tabs .tab-link:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    transform: translateY(-1px);
+}
+
+.subcategory-tabs .tab-link.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0f172a;
+}
+
+.tab-thumbnail {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-right: 0.4rem;
+}
+
+.tab-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ======================================= */
+/* ALLERGEN FILTER (SIDEBAR) – TOGGLES     */
+/* ======================================= */
+
+.allergen-sidebar {
+    background-color: rgba(255, 255, 255, 0.96);
+    border-radius: 14px;
+    padding: 1rem 1.1rem 1.2rem;
+    border: 1px solid var(--ms-border, #e5e7eb);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    text-align: left;
+}
+
+.allergen-sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.allergen-sidebar p {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Wrapper for allergen toggle pills */
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Each allergen item */
+.allergen-item {
+    flex: 1 1 48%;
+}
+
+/* Pill-style label that wraps the hidden checkbox */
+.allergen-pill {
+   display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    background: #f1f5f9;
+    border: 1px solid #cbd5f5;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.1s ease;
+}
+
+/* Visually hide the checkbox but keep it accessible */
+.allergen-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Text inside the pill */
+.allergen-pill-label {
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+
+/* Checked pill state – via :checked or JS adding .is-active */
+.allergen-checkbox:checked + .allergen-pill-label {
+    color: #0f172a;
+}
+
+.allergen-pill.is-active,
+.allergen-pill:has(.allergen-checkbox:checked) {
+    background: #dcfce7;
+    border-color: #22c55e;
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+}
+
+/* Touch feedback */
+.allergen-pill:active {
+    transform: scale(0.97);
+}
+
+/* ======================================= */
+/* RESPONSIVE LAYOUT – MOBILE FIRST        */
+/* ======================================= */
+
+@media (max-width: 768px) {
+
+    /* Layout: filters above dishes on phones */
+    .menu-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+        padding: 0.75rem;
+    }
+
+    .allergen-sidebar {
+        position: sticky;
+        top: 0.5rem;
+        z-index: 5;
+    }
+
+    .allergen-sidebar h2 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .allergen-sidebar p {
+        font-size: 0.8rem;
+    }
+
+    .menu-content-wrapper {
+        width: 100%;
+    }
+
+    /* Allergen toggles: full-width, big tap targets */
+    .filter-controls {
+        gap: 0.4rem;
+    }
+
+    .allergen-item {
+        flex: 1 1 100%;
+    }
+
+    .allergen-pill {
+        padding: 0.6rem 1rem;
+    }
+
+    .allergen-pill-label {
+        font-size: 1rem;
+    }
+
+    /* Cards – one per row */
+    .ms-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .dish-list-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Subcategory nav: scrollable, bigger tap targets */
+    .subcategory-tabs {
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+    }
+
+    .subcategory-tabs .tab-link {
+        flex: 0 0 auto;
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .tab-thumbnail {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Dish table scroll (if used anywhere) */
+    .dish-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .dish-table {
+        min-width: 600px;
+    }
+
+    /* Hero & container spacing on mobile */
+    .ms-hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ms-hero {
+        padding: 2.25rem 1rem 1.5rem;
+    }
+
+    .ms-container {
+        padding: 1.25rem 1rem 2.5rem;
+    }
+}

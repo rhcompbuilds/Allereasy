@@ -1,0 +1,126 @@
+{% extends 'menus/base.html' %}
+{% load static %}
+
+{% block title %}{{ menu_type.name }} | {{ category.name }} Menu{% endblock title %}
+
+{# If your base.html has a breadcrumb block, use this #}
+{% block breadcrumb %}
+    <a href="{% url 'category_selection' menu_type.slug %}"
+   class="ms-btn ms-btn-back">
+    <svg class="ms-btn-icon" viewBox="0 0 24 24" width="18" height="18">
+        <path d="M15 6l-6 6 6 6" fill="none" stroke="white" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+</a>
+{% endblock breadcrumb %}
+
+{# If your older base.html still uses back_link, this keeps it working too #}
+{% block back_link %}
+    <a href="{% url 'category_selection' menu_type_slug=menu_type.slug %}"
+       class="nav-item back-link-header"
+       aria-label="Back to categories">
+        <img src="{% static 'images/Back.png' %}" alt="Back to Categories">
+    </a>
+{% endblock back_link %}
+
+{# Optional: background image hook (only used if base.html defines head_extra) #}
+{% block head_extra %}
+    {% if menu_type.background_image %}
+    <style>
+        body {
+            background-image: url('{{ menu_type.background_image }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+    {% endif %}
+{% endblock head_extra %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <h1 class="MenuTitle">
+        {% if menu_type.logo %}
+            <img alt="{{ menu_type.name }} logo" src="{{ menu_type.logo }}">
+        {% else %}
+            {{ menu_type.name }} Menu
+        {% endif %}
+    </h1>
+
+    <h2 class="text-center mt-n2 mb-4">{{ category.name }} selection</h2>
+
+    {# Subcategory tabs #}
+    {% with excluded=excluded_allergen_ids|join:',' %}
+    <nav class="subcategory-tabs mb-3">
+
+        {# All items tab #}
+        <a href="?{% if excluded %}excluded_allergens={{ excluded }}{% endif %}"
+           class="tab-link all-link {% if not selected_subcat_slug %}active{% endif %}">
+            <span class="tab-label">All items</span>
+        </a>
+
+        {# Each subcategory as a tab #}
+        {% for subcat in subcategories %}
+            <a href="?subcategory={{ subcat.slug }}{% if excluded %}&excluded_allergens={{ excluded }}{% endif %}"
+               class="tab-link {% if selected_subcat_slug == subcat.slug %}active{% endif %}">
+                {% if subcat.subcat_image %}
+                    <img src="{{ subcat.subcat_image }}"
+                         alt="{{ subcat.name }} image"
+                         class="tab-thumbnail">
+                {% endif %}
+                <span class="tab-label">{{ subcat.name }}</span>
+            </a>
+        {% endfor %}
+
+    </nav>
+    {% endwith %}
+
+    <div class="row g-4 menu-container">
+
+        {# Left: allergen filter #}
+        <aside class="col-lg-4">
+            <div class="allergen-sidebar">
+                <h2>Filter allergens</h2>
+                <p class="small text-muted mb-3">
+                    Dishes containing unchecked allergens will be hidden.
+                </p>
+
+                <div class="filter-controls">
+                    {% for allergen in all_allergens %}
+                    <div class="allergen-item">
+                        <label class="allergen-pill">
+                            <input type="checkbox"
+                                class="allergen-checkbox"
+                                value="{{ allergen.pk }}"
+                                {# CHECKED = viewable, UNCHECKED = excluded #}
+                                {% if allergen.pk not in excluded_allergen_ids %}checked{% endif %}>
+                            <span class="allergen-pill-label">
+                                {{ allergen.name }}
+                            </span>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+
+        {# Right: dishes list (AJAX-updated) #}
+        <section class="col-lg-8 menu-content-wrapper" id="dish-list-container">
+            {% include 'menus/dish_content_partial.html' with dishes=dishes %}
+        </section>
+    </div>
+</div>
+
+{# Extra JS hook – safe even if base.html doesn’t define this block #}
+{% block extra_js %}
+<script>
+    window.menuDetailBaseUrl = "{% url 'dish_list' menu_type_slug=menu_type.slug category_slug=category.slug %}";
+    window.selectedSubcategorySlug = "{{ selected_subcat_slug|default:'' }}";
+</script>
+<script src="{% static 'js/menu_filter.js' %}"></script>
+{% endblock extra_js %}
+
+{% endblock content %}

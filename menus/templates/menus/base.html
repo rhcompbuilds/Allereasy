@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    {% block title %}
+      Allereasy - Live allergen-aware menus
+    {% endblock %}
+  </title>
+
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+  <!-- Shared design tokens / buttons -->
+  <link rel="stylesheet" href="{% static 'css/shared.css' %}">
+  <!-- Public / guest-facing styles (including mobile-first menu layout) -->
+  <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+</head>
+<body>
+
+  <!-- Top header shell used by all guest views -->
+  <header class="main-header">
+    <div class="navbar">
+
+      <!-- Left: logo + name -->
+      <div class="nav-links-left">
+        <a href="{% url 'index' %}" class="home-logo" aria-label="Allereasy home">
+          <img src="{% static 'images/allereasy-logo.png' %}"
+               alt="Allereasy logo">
+        </a>
+      </div>
+
+      <!-- Right: simple nav -->
+      <div class="nav-links-right">
+    {% block breadcrumb %}{% endblock %}
+
+    <a href="{% url 'index' %}" class="nav-item">
+        Home
+    </a>
+
+    {% if request.user.is_authenticated %}
+        <a href="/secure/" class="nav-item">
+            Admin
+        </a>
+        <a href="{% url 'custom_logout' %}" class="ms-btn ms-btn-small ms-btn-ghost">
+            Logout
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}" class="ms-btn ms-btn-small">
+            Login
+        </a>
+    {% endif %}
+</div>
+
+    </div>
+  </header>
+
+  <!-- Main content wrapper (matches #content styles in stylesheet.css) -->
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer class="ae-footer py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p class="mb-0 small">
+        &copy; {{ current_year|default:2025 }} Allereasy. All rights reserved.
+      </p>
+      <p class="mb-0 small text-muted">
+        Built to help guests make safer, informed choices.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
