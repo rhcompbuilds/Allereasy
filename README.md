@@ -484,4 +484,5 @@ Contributions are very welcome. If you find a bug, have a feature idea, or want 
 
 ## Licence
 
-This project is released under the MIT Licence - you are free to use, modify, and distribute it. See the `LICENSE` file for details.
+This project is released under the GPL 3.0 Licence - you are free to use, modify, and distribute it. See the `LICENSE` file for details.
+
